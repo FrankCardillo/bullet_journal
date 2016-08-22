@@ -12,7 +12,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails', '~> 3.0'
   gem 'pry-rails'
-  gem 'shoulda'
+  gem 'shoulda-matchers'
   gem 'valid_attribute'
 end
 
