@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
-  resources :users, except: :index do
-    resources :pages
-  end
+  
 
+  devise_for :users
   resources :pages do
     resources :entries
   end
