@@ -21,32 +21,16 @@ class UserJournal extends React.Component {
 
   handleFormSubmit(event) {
     event.preventDefault();
-    let newGrocery = {
+    let newEntry = {
       id: Date.now(),
-      name: this.state.name
+      body: this.state.body,
+      type: this.state.type
     };
-    let newGroceries = [...this.state.groceries, newGrocery];
+    let newEntries = [...this.state.entries, newEntry];
     this.setState({
-      groceries: newGroceries,
-      name: ''
-    });
-
-    $.ajax({
-        type: "POST",
-        url: '/api/groceries',
-        contentType: 'application/json',
-        data: JSON.stringify({'grocery': {'name': this.state.name}})
-    })
-    .done((data) => {
-      let newGrocery = {
-        id: data.id,
-        name: this.state.name
-      };
-      let newGroceries = [...this.state.groceries, newGrocery];
-      this.setState({
-        groceries: newGroceries,
-        name: ''
-      });
+      entries: newEntries,
+      body: '',
+      type: ''
     });
   }
 

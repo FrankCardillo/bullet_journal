@@ -5,14 +5,23 @@ import Entry from './Entry';
 
 
 const Page = (props) => {
-  let userEntries = props.entries.map( entry => {
-    return <Entry key={entry.id} entryType={entry.type} entryBody={entry.body} />
-  });
+  let entries = props.entries.map(entry => {
+    const { id, type, body } = entry;
+
     return (
-      <ul>
-        {entries}
-      </ul>
+      <Entry
+        key={id}
+        type={type}
+        body={body}
+      />
     );
+  });
+
+  return (
+    <ul>
+      {entries}
+    </ul>
+  );
 };
 
 export default Page;
