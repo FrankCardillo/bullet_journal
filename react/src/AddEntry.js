@@ -8,9 +8,15 @@ const AddEntry = (props) => {
         <form onSubmit={props.handleFormSubmit}>
           <input
             type="text"
+            placeholder="type"
+            value={props.type}
+            onChange={props.handleTypeChange}
+          />
+          <input
+            type="text"
             placeholder="your entry"
-            value={props.name}
-            onChange={props.handleChange}
+            value={props.body}
+            onChange={props.handleBodyChange}
           />
           <input type="submit" value="Add To List" />
         </form>

@@ -5,7 +5,7 @@ import Entry from './Entry';
 
 
 const Page = (props) => {
-  let entries = props.data.map( entry => {
+  let userEntries = props.entries.map( entry => {
     return <Entry key={entry.id} entryType={entry.type} entryBody={entry.body} />
   });
     return (
