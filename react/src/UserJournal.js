@@ -1,7 +1,7 @@
 import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Entry from './Entry';
+import AddEntry from './AddEntry';
 import Page from './Page';
 
 class UserJournal extends React.Component {
@@ -16,7 +16,10 @@ class UserJournal extends React.Component {
 
   render() {
     return (
-      <Page data={this.state.data}/>
+      <div>
+        <AddEntry />
+        <Page data={this.state.data}/>
+      </div>
     );
   }
 }
