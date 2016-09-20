@@ -17,6 +17,7 @@ class UserJournal extends React.Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleBodyChange = this.handleBodyChange.bind(this);
     this.handleTypeChange = this.handleTypeChange.bind(this);
+    this.handleButtonClick = this.handleButtonClick.bind(this);
   }
 
   handleFormSubmit(event) {
@@ -44,6 +45,13 @@ class UserJournal extends React.Component {
     this.setState({ type: newType });
   }
 
+  handleButtonClick(id) {
+    let newEntries = this.state.entries.filter(entry => {
+      return entry.id !== id;
+    });
+    this.setState({ entries: newEntries });
+  }
+
   render() {
     return (
       <div>
@@ -54,7 +62,10 @@ class UserJournal extends React.Component {
           type={this.state.type}
           body={this.state.body}
         />
-        <Page entries={this.state.entries} />
+        <Page
+          entries={this.state.entries}
+          handleButtonClick={this.handleButtonClick}
+        />
       </div>
     );
   }
