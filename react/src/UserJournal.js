@@ -17,7 +17,9 @@ class UserJournal extends React.Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleBodyChange = this.handleBodyChange.bind(this);
     this.handleTypeChange = this.handleTypeChange.bind(this);
-    this.handleButtonClick = this.handleButtonClick.bind(this);
+    this.handleDeleteButtonClick = this.handleDeleteButtonClick.bind(this);
+    this.handleEditButtonClick = this.handleEditButtonClick.bind(this);
+
   }
 
   handleFormSubmit(event) {
@@ -45,11 +47,22 @@ class UserJournal extends React.Component {
     this.setState({ type: newType });
   }
 
-  handleButtonClick(id) {
+  handleDeleteButtonClick(id) {
     let newEntries = this.state.entries.filter(entry => {
       return entry.id !== id;
     });
     this.setState({ entries: newEntries });
+  }
+
+  handleEditButtonClick(id) {
+    let newEntries = this.state.entries;
+    for (var i = 0; i < newEntries.length; i++) {
+      if (newEntries[i].id === id) {
+        var editPrompt = prompt("Temporary Edit Feature. Edit your entry:");
+        newEntries[i].body = editPrompt;
+      }
+    }
+    this.setState({entries: newEntries});
   }
 
   render() {
@@ -64,7 +77,8 @@ class UserJournal extends React.Component {
         />
         <Page
           entries={this.state.entries}
-          handleButtonClick={this.handleButtonClick}
+          handleDeleteButtonClick={this.handleDeleteButtonClick}
+          handleEditButtonClick={this.handleEditButtonClick}
         />
       </div>
     );
