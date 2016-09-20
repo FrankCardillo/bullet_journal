@@ -44,5 +44,9 @@
     "redux-form": "^5.2.3",
     "redux-thunk": "^2.1.0",
     "webpack": "^1.13.0"
+  },
+  "scripts": {
+    "webpack:deploy": "webpack --config=webpack/webpack.config.js -p",
+    "heroku-postbuild": "npm run webpack:deploy"
   }
 }
