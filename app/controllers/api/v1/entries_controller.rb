@@ -6,6 +6,7 @@ class Api::V1::EntriesController < Api::V1::BaseController
   end
 
   def show
+    respond_with Entry.find(params[:id])
   end
 
   def new

@@ -10,7 +10,7 @@ class UserJournal extends React.Component {
 
     this.state = {
       entries: [],
-      body: '',
+      content: '',
       type: ''
     }
 
@@ -22,24 +22,30 @@ class UserJournal extends React.Component {
 
   }
 
+  componentDidMount() {
+    $.getJSON('/api/v1/pages/1/entries.json', (response) => {
+      this.setState({ entries: response })
+    });
+  }
+
   handleFormSubmit(event) {
     event.preventDefault();
     let newEntry = {
       id: Date.now(),
-      body: this.state.body,
+      content: this.state.content,
       type: this.state.type
     };
     let newEntries = [...this.state.entries, newEntry];
     this.setState({
       entries: newEntries,
-      body: '',
+      content: '',
       type: ''
     });
   }
 
   handleBodyChange(event) {
     let newBody = event.target.value;
-    this.setState({ body: newBody });
+    this.setState({ content: newBody });
   }
 
   handleTypeChange(event) {
@@ -59,7 +65,7 @@ class UserJournal extends React.Component {
     for (var i = 0; i < newEntries.length; i++) {
       if (newEntries[i].id === id) {
         var editPrompt = prompt("Temporary Edit Feature. Edit your entry:");
-        newEntries[i].body = editPrompt;
+        newEntries[i].content = editPrompt;
       }
     }
     this.setState({entries: newEntries});
@@ -73,7 +79,7 @@ class UserJournal extends React.Component {
           handleBodyChange={this.handleBodyChange}
           handleTypeChange={this.handleTypeChange}
           type={this.state.type}
-          body={this.state.body}
+          body={this.state.content}
         />
         <Page
           entries={this.state.entries}

@@ -6,6 +6,7 @@ class Api::V1::PagesController < Api::V1::BaseController
   end
 
   def show
+    respond_with Page.find(params[:id]).entries
   end
 
   def new
