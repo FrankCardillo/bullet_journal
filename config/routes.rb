@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   as :user do
     get '/' => 'pages#index'
   end
-  resources :pages do
-    resources :entries
+  namespace :api do
+    namespace :v1 do
+      resources :pages do
+        resources :entries
+      end
+    end
   end
 end
