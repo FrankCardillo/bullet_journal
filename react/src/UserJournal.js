@@ -24,25 +24,25 @@ class UserJournal extends React.Component {
   }
 
   componentDidMount() {
-    $.getJSON('/api/v1/pages/1/entries.json', (response) => {
+    $.getJSON('/api/v1/pages/1.json', (response) => {
       this.setState({ entries: response })
     });
   }
 
   handleFormSubmit(event) {
     event.preventDefault();
-    let newEntry = {
-      id: Date.now(),
-      page_id: ,
-      content: this.state.content,
-      type: this.state.type
-    };
-    let newEntries = [...this.state.entries, newEntry];
-    this.setState({
-      entries: newEntries,
-      content: '',
-      type: ''
-    });
+    // let newEntry = {
+    //   id: Date.now(),
+    //   page_id: ,
+    //   content: this.state.content,
+    //   type: this.state.type
+    // };
+    // let newEntries = [...this.state.entries, newEntry];
+    // this.setState({
+    //   entries: newEntries,
+    //   content: '',
+    //   type: ''
+    // });
   }
 
   handleBodyChange(event) {
@@ -56,10 +56,14 @@ class UserJournal extends React.Component {
   }
 
   handleDeleteButtonClick(id) {
-    let newEntries = this.state.entries.filter(entry => {
-      return entry.id !== id;
-    });
-    this.setState({ entries: newEntries });
+    $.ajax({
+      url: '/api/v1/pages/1/entries/' + id,
+      method: 'DELETE'
+    }).done(
+      $.getJSON('/api/v1/pages/1.json', (response) => {
+        this.setState({ entries: response })
+      })
+    );
   }
 
   handleEditButtonClick(id) {

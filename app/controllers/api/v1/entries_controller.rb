@@ -2,7 +2,6 @@ class Api::V1::EntriesController < Api::V1::BaseController
   before_action :authenticate_user!
 
   def index
-    respond_with Entry.all
   end
 
   def show
@@ -26,7 +25,12 @@ class Api::V1::EntriesController < Api::V1::BaseController
   end
 
   def destroy
-    respond_with Entry.destroy(params[:id])
+    Entry.destroy(params[:id])
+    respond_to do |format|
+      format.json do
+        render json: { data: Entry.find_by(page_id: params[:page_id]) }
+      end
+    end
   end
 
   private
