@@ -31,18 +31,18 @@ class UserJournal extends React.Component {
 
   handleFormSubmit(event) {
     event.preventDefault();
-    // let newEntry = {
-    //   id: Date.now(),
-    //   page_id: ,
-    //   content: this.state.content,
-    //   type: this.state.type
-    // };
-    // let newEntries = [...this.state.entries, newEntry];
-    // this.setState({
-    //   entries: newEntries,
-    //   content: '',
-    //   type: ''
-    // });
+    $.ajax({
+      url: '/api/v1/pages/1/entries',
+      type: 'POST',
+      data: {
+        entry: {content: this.state.content, page_id: 1}
+      },
+      dataType: 'json'
+    }).done(
+      $.getJSON('/api/v1/pages/1.json', (response) => {
+        this.setState({ entries: response })
+      })
+    )
   }
 
   handleBodyChange(event) {

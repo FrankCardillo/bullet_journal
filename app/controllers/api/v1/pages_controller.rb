@@ -2,18 +2,18 @@ class Api::V1::PagesController < Api::V1::BaseController
   before_action :authenticate_user!
 
   def index
-    respond_with Page.all
+    respond_with current_user.pages
   end
 
   def show
-    respond_with Page.find(params[:id]).entries
+    respond_with current_user.pages.find(params[:id]).entries
   end
 
   def new
   end
 
   def create
-    respond_with :api, :v1, Page.create(entry_params)
+    Page.create(entry_params)
   end
 
   def edit

@@ -12,7 +12,7 @@ class Api::V1::EntriesController < Api::V1::BaseController
   end
 
   def create
-    respond_with :api, :v1, Entry.create(entry_params)
+    Entry.create(entry_params)
   end
 
   def edit
