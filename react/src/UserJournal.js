@@ -11,7 +11,8 @@ class UserJournal extends React.Component {
     this.state = {
       entries: [],
       content: '',
-      type: ''
+      type: '',
+      page_id: ''
     }
 
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -32,6 +33,7 @@ class UserJournal extends React.Component {
     event.preventDefault();
     let newEntry = {
       id: Date.now(),
+      page_id: ,
       content: this.state.content,
       type: this.state.type
     };
