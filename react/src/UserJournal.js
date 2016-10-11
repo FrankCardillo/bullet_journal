@@ -67,14 +67,27 @@ class UserJournal extends React.Component {
   }
 
   handleEditButtonClick(id) {
-    let newEntries = this.state.entries;
+    var newEntries = this.state.entries;
+    var editedEntry;
     for (var i = 0; i < newEntries.length; i++) {
       if (newEntries[i].id === id) {
-        var editPrompt = prompt("Temporary Edit Feature. Edit your entry:");
+        var editPrompt = prompt("Temporary Edit Feature. Edit your entry:", newEntries[i].content);
         newEntries[i].content = editPrompt;
+        editedEntry = newEntries[i].content;
       }
     }
-    this.setState({entries: newEntries});
+    $.ajax({
+      url: '/api/v1/pages/1/entries/' + id,
+      type: 'PATCH',
+      data: {
+        entry: {content: editedEntry, page_id: 1}
+      },
+      dataType: 'json'
+    }).done(
+      $.getJSON('/api/v1/pages/1.json', (response) => {
+        this.setState({ entries: response })
+      })
+    )
   }
 
   render() {
