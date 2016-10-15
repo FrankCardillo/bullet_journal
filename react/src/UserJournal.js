@@ -10,8 +10,9 @@ class UserJournal extends React.Component {
 
     this.state = {
       entries: [],
-      body: '',
-      type: ''
+      content: '',
+      type: '',
+      page_id: ''
     }
 
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -22,24 +23,31 @@ class UserJournal extends React.Component {
 
   }
 
+  componentDidMount() {
+    $.getJSON('/api/v1/pages/1.json', (response) => {
+      this.setState({ entries: response })
+    });
+  }
+
   handleFormSubmit(event) {
     event.preventDefault();
-    let newEntry = {
-      id: Date.now(),
-      body: this.state.body,
-      type: this.state.type
-    };
-    let newEntries = [...this.state.entries, newEntry];
-    this.setState({
-      entries: newEntries,
-      body: '',
-      type: ''
-    });
+    $.ajax({
+      url: '/api/v1/pages/1/entries',
+      type: 'POST',
+      data: {
+        entry: {content: this.state.content, page_id: 1}
+      },
+      dataType: 'json'
+    }).done(
+      $.getJSON('/api/v1/pages/1.json', (response) => {
+        this.setState({ entries: response })
+      })
+    )
   }
 
   handleBodyChange(event) {
     let newBody = event.target.value;
-    this.setState({ body: newBody });
+    this.setState({ content: newBody });
   }
 
   handleTypeChange(event) {
@@ -48,21 +56,38 @@ class UserJournal extends React.Component {
   }
 
   handleDeleteButtonClick(id) {
-    let newEntries = this.state.entries.filter(entry => {
-      return entry.id !== id;
-    });
-    this.setState({ entries: newEntries });
+    $.ajax({
+      url: '/api/v1/pages/1/entries/' + id,
+      method: 'DELETE'
+    }).done(
+      $.getJSON('/api/v1/pages/1.json', (response) => {
+        this.setState({ entries: response })
+      })
+    );
   }
 
   handleEditButtonClick(id) {
-    let newEntries = this.state.entries;
+    var newEntries = this.state.entries;
+    var editedEntry;
     for (var i = 0; i < newEntries.length; i++) {
       if (newEntries[i].id === id) {
-        var editPrompt = prompt("Temporary Edit Feature. Edit your entry:");
-        newEntries[i].body = editPrompt;
+        var editPrompt = prompt("Temporary Edit Feature. Edit your entry:", newEntries[i].content);
+        newEntries[i].content = editPrompt;
+        editedEntry = newEntries[i].content;
       }
     }
-    this.setState({entries: newEntries});
+    $.ajax({
+      url: '/api/v1/pages/1/entries/' + id,
+      type: 'PATCH',
+      data: {
+        entry: {content: editedEntry, page_id: 1}
+      },
+      dataType: 'json'
+    }).done(
+      $.getJSON('/api/v1/pages/1.json', (response) => {
+        this.setState({ entries: response })
+      })
+    )
   }
 
   render() {
@@ -73,7 +98,7 @@ class UserJournal extends React.Component {
           handleBodyChange={this.handleBodyChange}
           handleTypeChange={this.handleTypeChange}
           type={this.state.type}
-          body={this.state.body}
+          body={this.state.content}
         />
         <Page
           entries={this.state.entries}

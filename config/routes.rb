@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "registrations" }
   as :user do
-    get '/' => 'pages#index'
+    get '/' => 'api/v1/pages#index'
   end
-  resources :pages do
-    resources :entries
+  namespace :api do
+    namespace :v1 do
+      resources :pages do
+        resources :entries
+      end
+    end
   end
 end
