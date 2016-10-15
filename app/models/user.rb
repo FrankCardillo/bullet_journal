@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_many :pages
+  has_many :entries
 
   validates_presence_of :username
   validates_presence_of :password
