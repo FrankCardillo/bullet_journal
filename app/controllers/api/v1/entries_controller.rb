@@ -19,7 +19,7 @@ class Api::V1::EntriesController < Api::V1::BaseController
     Entry.destroy(params[:id])
     respond_to do |format|
       format.json do
-        render json: { data: Entry.find_by(page_id: params[:page_id]) }
+        render json: { data: Entry.find_by(user_id: params[:user_id]) }
       end
     end
   end

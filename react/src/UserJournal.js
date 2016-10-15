@@ -11,8 +11,8 @@ class UserJournal extends React.Component {
     this.state = {
       entries: [],
       content: '',
-      type: '',
-      page_id: ''
+      entry_type: '',
+      user_id: ''
     }
 
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -24,7 +24,7 @@ class UserJournal extends React.Component {
   }
 
   componentDidMount() {
-    $.getJSON('/api/v1/pages/1.json', (response) => {
+    $.getJSON('/api/v1/entries.json', (response) => {
       this.setState({ entries: response })
     });
   }
@@ -32,14 +32,14 @@ class UserJournal extends React.Component {
   handleFormSubmit(event) {
     event.preventDefault();
     $.ajax({
-      url: '/api/v1/pages/1/entries',
+      url: '/api/v1/entries',
       type: 'POST',
       data: {
-        entry: {content: this.state.content, page_id: 1}
+        entry: {content: this.state.content, user_id: 6}
       },
       dataType: 'json'
     }).done(
-      $.getJSON('/api/v1/pages/1.json', (response) => {
+      $.getJSON('/api/v1/entries.json', (response) => {
         this.setState({ entries: response })
       })
     )
@@ -52,15 +52,15 @@ class UserJournal extends React.Component {
 
   handleTypeChange(event) {
     let newType = event.target.value;
-    this.setState({ type: newType });
+    this.setState({ entry_type: newType });
   }
 
   handleDeleteButtonClick(id) {
     $.ajax({
-      url: '/api/v1/pages/1/entries/' + id,
+      url: '/api/v1/entries/' + id,
       method: 'DELETE'
     }).done(
-      $.getJSON('/api/v1/pages/1.json', (response) => {
+      $.getJSON('/api/v1/entries.json', (response) => {
         this.setState({ entries: response })
       })
     );
@@ -77,14 +77,14 @@ class UserJournal extends React.Component {
       }
     }
     $.ajax({
-      url: '/api/v1/pages/1/entries/' + id,
+      url: '/api/v1/entries/' + id,
       type: 'PATCH',
       data: {
-        entry: {content: editedEntry, page_id: 1}
+        entry: {content: editedEntry, user_id: 6}
       },
       dataType: 'json'
     }).done(
-      $.getJSON('/api/v1/pages/1.json', (response) => {
+      $.getJSON('/api/v1/entries.json', (response) => {
         this.setState({ entries: response })
       })
     )
@@ -97,7 +97,7 @@ class UserJournal extends React.Component {
           handleFormSubmit={this.handleFormSubmit}
           handleBodyChange={this.handleBodyChange}
           handleTypeChange={this.handleTypeChange}
-          type={this.state.type}
+          type={this.state.entry_type}
           body={this.state.content}
         />
         <Page
