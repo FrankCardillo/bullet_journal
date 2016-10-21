@@ -6,13 +6,13 @@ import Entry from './Entry';
 
 const Page = (props) => {
   let entries = props.entries.map(entry => {
-    const { id, type, content } = entry;
+    const { id, entry_type, content } = entry;
     let onDeleteButtonClick = () => props.handleDeleteButtonClick(id);
     let onEditButtonClick = () => props.handleEditButtonClick(id);
     return (
       <Entry
         key={id}
-        type={type}
+        type={entry_type}
         content={content}
         handleDeleteButtonClick={onDeleteButtonClick}
         handleEditButtonClick={onEditButtonClick}

@@ -25,7 +25,8 @@ class UserJournal extends React.Component {
 
   componentDidMount() {
     $.getJSON('/api/v1/entries.json', (response) => {
-      this.setState({ entries: response })
+      this.setState({ entries: response[0] })
+      this.setState({ user_id: response[1] })
     });
   }
 
@@ -35,12 +36,12 @@ class UserJournal extends React.Component {
       url: '/api/v1/entries',
       type: 'POST',
       data: {
-        entry: {content: this.state.content, user_id: 6}
+        entry: {content: this.state.content, user_id: this.state.user_id, entry_type: this.state.entry_type}
       },
       dataType: 'json'
     }).done(
       $.getJSON('/api/v1/entries.json', (response) => {
-        this.setState({ entries: response })
+        this.setState({ entries: response[0] })
       })
     )
   }
@@ -61,7 +62,7 @@ class UserJournal extends React.Component {
       method: 'DELETE'
     }).done(
       $.getJSON('/api/v1/entries.json', (response) => {
-        this.setState({ entries: response })
+        this.setState({ entries: response[0] })
       })
     );
   }
@@ -80,12 +81,12 @@ class UserJournal extends React.Component {
       url: '/api/v1/entries/' + id,
       type: 'PATCH',
       data: {
-        entry: {content: editedEntry, user_id: 6}
+        entry: {content: editedEntry, user_id: this.state.user_id}
       },
       dataType: 'json'
     }).done(
       $.getJSON('/api/v1/entries.json', (response) => {
-        this.setState({ entries: response })
+        this.setState({ entries: response[0] })
       })
     )
   }

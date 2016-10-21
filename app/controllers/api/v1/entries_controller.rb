@@ -2,7 +2,8 @@ class Api::V1::EntriesController < Api::V1::BaseController
   before_action :authenticate_user!
 
   def index
-    respond_with current_user.entries
+    info = [current_user.entries, current_user.id]
+    respond_with info
   end
 
   def create
