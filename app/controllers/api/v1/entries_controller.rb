@@ -2,20 +2,11 @@ class Api::V1::EntriesController < Api::V1::BaseController
   before_action :authenticate_user!
 
   def index
-  end
-
-  def show
-    respond_with Entry.find(params[:id])
-  end
-
-  def new
+    respond_with current_user.entries
   end
 
   def create
     Entry.create(entry_params)
-  end
-
-  def edit
   end
 
   def update
@@ -28,7 +19,7 @@ class Api::V1::EntriesController < Api::V1::BaseController
     Entry.destroy(params[:id])
     respond_to do |format|
       format.json do
-        render json: { data: Entry.find_by(page_id: params[:page_id]) }
+        render json: { data: Entry.find_by(user_id: params[:user_id]) }
       end
     end
   end
@@ -36,6 +27,6 @@ class Api::V1::EntriesController < Api::V1::BaseController
   private
 
   def entry_params
-    params.require(:entry).permit(:id, :page_id, :type, :content)
+    params.require(:entry).permit(:id, :user_id, :entry_type, :content)
   end
 end
