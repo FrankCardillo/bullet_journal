@@ -3,9 +3,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import UserJournal from './UserJournal';
 
-$(function() {
-  ReactDOM.render(
-    <UserJournal />,
-    document.getElementById('app')
-  );
+document.addEventListener("DOMContentLoaded", function(event) {
+    ReactDOM.render(
+      <UserJournal />,
+      document.getElementById('app')
+    );
 });

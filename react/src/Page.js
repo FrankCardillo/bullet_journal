@@ -3,7 +3,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Entry from './Entry';
 
-
 const Page = (props) => {
   let entries = props.entries.map(entry => {
     const { id, entry_type, content } = entry;
@@ -21,7 +20,7 @@ const Page = (props) => {
   });
 
   return (
-    <div>
+    <div className="containing-page">
       {entries}
     </div>
   );
