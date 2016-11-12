@@ -1,26 +1,32 @@
-<h2>Log in</h2>
+<h1 class="center app-title">Bullet Journal</h1>
+
+<h2 class="center log-title">Log In</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :username %><br />
-    <%= f.text_field :username, autofocus: true %>
+  <div class="row center">
+  <div class="small-12 column">
+    <%= f.label :username, class: 'my-labels' %>
+    <%= f.text_field :username, autofocus: true, class: 'my-fields' %>
   </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+  <div class="small-12 column">
+    <%= f.label :password, class: 'my-labels' %>
+    <%= f.password_field :password, autocomplete: "off", class: 'my-fields'%>
   </div>
 
   <% if devise_mapping.rememberable? -%>
-    <div class="field">
+    <div>
       <%= f.check_box :remember_me %>
       <%= f.label :remember_me %>
     </div>
   <% end -%>
 
   <div class="actions">
-    <%= f.submit "Log in" %>
+    <%= f.submit "Log in", class: 'all-buttons' %>
+  </div>
   </div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+<div class="row center link-container">
+  <%= render "devise/shared/links" %>
+</div>

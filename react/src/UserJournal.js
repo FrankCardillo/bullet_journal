@@ -72,7 +72,7 @@ class UserJournal extends React.Component {
     var editedEntry;
     for (var i = 0; i < newEntries.length; i++) {
       if (newEntries[i].id === id) {
-        var editPrompt = prompt("Temporary Edit Feature. Edit your entry:", newEntries[i].content);
+        var editPrompt = prompt("Edit your entry:", newEntries[i].content);
         newEntries[i].content = editPrompt;
         editedEntry = newEntries[i].content;
       }
@@ -95,6 +95,7 @@ class UserJournal extends React.Component {
     return (
       <div>
         <AddEntry
+          className="create-entry"
           handleFormSubmit={this.handleFormSubmit}
           handleBodyChange={this.handleBodyChange}
           handleTypeChange={this.handleTypeChange}
@@ -110,6 +111,5 @@ class UserJournal extends React.Component {
     );
   }
 }
-
 
 export default UserJournal;
