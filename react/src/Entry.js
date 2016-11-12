@@ -6,7 +6,7 @@ const Entry = (props) => {
   return(
     <div className="main-entry-container row">
       <div className="small-9 column entry-text-container">
-        <p className={props.type} key={props.id}>{props.content}</p>
+        <p className={props.type} key={props.id}>{props.type}{props.content}</p>
       </div>
       <div className="small-3 column center">
         <div>
