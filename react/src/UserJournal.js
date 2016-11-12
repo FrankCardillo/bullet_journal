@@ -11,7 +11,7 @@ class UserJournal extends React.Component {
     this.state = {
       entries: [],
       content: '',
-      entry_type: '',
+      entry_type: '-',
       user_id: ''
     }
 
