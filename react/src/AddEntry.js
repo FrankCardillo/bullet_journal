@@ -7,16 +7,19 @@ const AddEntry = (props) => {
   return (
         <form onSubmit={props.handleFormSubmit} className="form-container">
           <div className="row">
-            <div className="small-12 column">
-              <input
-                type="text"
-                placeholder="type"
+            <div className="small-1 column">
+              <select
                 value={props.type}
                 onChange={props.handleTypeChange}
-                className="entry-fields"
-              />
+                className="select-field"
+              >
+                <option value="-">-</option>
+                <option value=">">></option>
+                <option value="=">=</option>
+                <option value="+">+</option>
+              </select>
             </div>
-            <div className="small-12 column">
+            <div className="small-11 column">
               <input
                 type="text"
                 placeholder="your entry"
